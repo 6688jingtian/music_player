@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>音乐播放器</title>
+		<meta name="keywords" content="音乐播放器" />
+		<meta name="description" content="有好听的歌曲" />
+		<style>
+			*{margin: 0;padding: 0;}
+			body
+			{
+				background: url(img/bg.jpg);
+				background-position: -560px 0;
+			}
+			#box
+			{
+				width: 536px;
+				height: 536px;
+				background: url(img/yybw.png);
+				position: absolute;left: 0;right: 0;top: 0;bottom: 0;margin: auto;/*自适应布局*/
+			}
+			.circle
+			{
+				width: 415px;
+				height: 415px;
+				background: url(img/bg1.png);
+				position: absolute;left: 0;right: 0;top: 0;bottom: 0;margin: auto;/*万能居中方法*/
+				text-align: center;
+				color: white;
+			}
+			.circle p.singer
+			{
+				line-height: 30px;
+				color: white;
+			}
+			.circle p.song
+			{
+			    line-height: 60px;
+			    font-size: 20px;
+			    color: deepskyblue;
+			    margin-bottom: 20px;
+			}
+			.circle img.star
+			{
+			    border-radius: 50%;	
+			}
+			.circle img.btn
+			{
+				position: absolute;
+				left: 180px;
+				top: 140px;
+				cursor: pointer;
+			}
+			.circle p.love
+			{
+				background: url(img/ht.png) no-repeat;
+				float: left;
+	            margin-left: 160px;
+	            margin-right: 44px;
+	            margin-top: 20px;
+	            padding-top: 30px;
+	            cursor: pointer;
+			}
+			.circle p.next
+			{
+				background: url(img/next.png) no-repeat;
+				float: left;
+				margin-top: 20px;
+				padding-top: 30px;
+				cursor: pointer;
+			}
+			.circle img.run
+			{
+				position: absolute;
+                left: 5px;
+                top: 2px;
+                z-index: -1;
+			}
+			.circle .run.rotate
+			{
+				animation: rot 10s linear infinite;
+			}
+			@keyframes rot
+			{
+				from{transform: rotate(0deg);}
+				to{transform: rotate(360deg);}
+			}
+			.circle .star.rotate
+			{
+				animation: wo 10s linear infinite;
+			}
+			@keyframes wo
+			{
+				from{transform: rotate(0deg);}
+				to{transform: rotate(360deg);}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div class="circle">
+				<img src="img/yyjd.png" class="run"/>
+				<p class="singer">陈淑桦</p>
+				<p class="song">笑红尘</p>
+				<div>
+					<img src="img/0.jpg" class="star" height="120px" width="120px" alt="陈淑桦"/>
+				    <img src="img/play.png" class="btn" alt="开始" />
+				</div>			
+				<p class="love">好听</p>
+			    <p class="next">切歌</p>
+			</div>
+		</div>
+		<audio src="music/0.mp3" id="myMusic"></audio>
+		<script src="js/jquery.js"></script>
+		<script>
+			var onOff=true;
+			$(".btn").click(function(){
+				if(onOff)
+				{
+				   $(".btn").get(0).src="img/pause.png";
+				   $("#myMusic").get(0).play();
+				   $(".run").addClass("rotate");
+				   $(".star").addClass("rotate");
+				}
+				else
+				{
+				   $(".btn").get(0).src="img/play.png";
+				   $("#myMusic").get(0).pause();
+				   $(".run").removeClass("rotate");
+				   $(".star").removeClass("rotate");
+				}
+				onOff=!onOff;
+			});
+			var na=new Array();//歌手
+			na[0]="陈淑桦 ";
+			na[1]="周杰伦";
+			na[2]="李行亮";
+			var ng=new Array();//歌名
+			ng[0]="笑红尘";
+			ng[1]="青花瓷";
+			ng[2]="愿得一人心";
+			var n=0;
+			$(".next").click(function()
+			{
+				n++;
+				if(n>2)
+				{
+					n=0;
+				}				
+				$("#myMusic").attr('src','music/'+n+'.mp3');
+				$(".star").attr('src','img/'+n+'.jpg');
+				$(".singer").html(na[n]);
+				$(".song").html(ng[n]);
+			    $(".btn").get(0).src="img/pause.png";
+			    $("#myMusic").get(0).play();
+			    $(".run").addClass("rotate");
+			    $(".star").addClass("rotate");
+			    onOff=false;
+			});
+			$(".love").click(function()
+			{
+				alert("感谢支持！");
+			})
+		</script>
+	</body>
+</html>
